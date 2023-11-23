@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Daftar Akun</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="{{ form.username.id_for_label }}">Username:</label>
+    {{ form.username }}
+    <br>
+    <label for="{{ form.email.id_for_label }}">Email:</label>
+    {{ form.email }}
+    <br>
+    <label for="{{ form.password.id_for_label }}">Password:</label>
+    {{ form.password }}
+    <br>
+    <button type="submit">Daftar</button>
+  </form>
+{% endblock %}

@@ -3,8 +3,20 @@ from .models import Customer, Service, Order, Payment, Feedback, Profile, Lapak,
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
 
 User = get_user_model()
+
+class CustomerRegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Customer
+        fields = ['nama', 'email', 'password']  # Sesuaikan dengan field yang dibutuhkan untuk registrasi
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password']) 
+        customer = Customer.objects.create_customer(**validated_data)
+        return customer
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:

@@ -30,6 +30,14 @@ from rest_framework.permissions import AllowAny
 
 User = get_user_model()
 
+@api_view(['POST'])
+def customer_registration(request):
+    serializer = CustomerSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class LoginViewSet(viewsets.GenericViewSet):
     permission_classes = [permissions.AllowAny]
     serializer_class = LoginSerializer
@@ -300,3 +308,4 @@ def login_view(request):
 
         else:
             return Response({'message': 'Login gagal. Cek kembali username dan password Anda.'}, status=status.HTTP_401_UNAUTHORIZED)
+        

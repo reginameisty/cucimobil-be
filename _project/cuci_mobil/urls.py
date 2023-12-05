@@ -62,6 +62,7 @@ urlpatterns = [
     path('api/customer/', views.CustomerListView.as_view(), name='customer-list'),
     path('api/customer/<int:pk>/', views.CustomerDetailView.as_view(), name='customer-detail'),
     path('api/login/', LoginView.as_view(), name='login'),
+    path('customer/register/', views.customer_registration, name='customer-registration'),
 ]
 
 if settings.DEBUG:
